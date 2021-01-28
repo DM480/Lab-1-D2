@@ -30,9 +30,10 @@
 #pragma config WRT = OFF        // Flash Program Memory Self Write Enable bits (Write protection off)
 
 #define _XTAL_FREQ 8000000
-//#define LEDr PORTEbits.RE2
-//#define LEDa PORTEbits.RE1
-//#define LEDv PORTEbits.RE0
+#define PUSH1 PORTBbits.RB0
+#define PUSH2 PORTBbits.RB1
+#define PUSH3 PORTBbits.RB2
+#define PUSH4 PORTBbits.RB3
 
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
@@ -70,21 +71,21 @@ void main(void) {
     
     while(1)
     {
-        if ((PORTBbits.RB0 == 1) && (!ban)) // cuando el boton de semaforo esta presionado y la bandera desactivada empezara el funcionamiento del semaforo 
+        if ((PUSH1 == 1) && (!ban)) // cuando el boton de semaforo esta presionado y la bandera desactivada empezara el funcionamiento del semaforo 
         {
             semaforo();
         }
-        if ((PORTBbits.RB1 == 1) && (ban))
+        if ((PUSH2 == 1) && (ban))
         {
             cuenta1();
             __delay_ms(100);
         }
-        if ((PORTBbits.RB2 == 1) && (ban))
+        if ((PUSH3 == 1) && (ban))
         {
             cuenta2();
             __delay_ms(100);
         }
-        if (PORTBbits.RB3 == 1){
+        if (PUSH4 == 1){
             reset();
             __delay_ms(100);
             }
@@ -113,11 +114,11 @@ void setup(void){
     TRISE  = 0; // limpia el puerto
     PORTE  = 0; 
     
-    TRISC = 0;  // indica que mi puerto es una salida y que limpia dicho puerto
-    PORTC = 0; 
+    TRISA = 0;  // indica que mi puerto es una salida y que limpia dicho puerto
+    PORTA = 0; 
     
-    TRISD = 0;
-    PORTD = 0;
+    TRISC = 0;
+    PORTC = 0;
     
     TRISB = 0B00001111;    //los primeros 3 puertos conectados como entradas
     PORTB = 0;
@@ -131,27 +132,27 @@ void semaforo(void){
         __delay_ms(100);
     }
         ban =   1;
-        PORTD = 0;
-        PORTB = 0;
         PORTC = 0;
+        PORTB = 0;
+        PORTA = 0;
 }
 void cuenta1(void)   // primer jugador
 {
-    if (PORTC == 0)   // empieza desde cero
+    if (PORTA == 0)   // empieza desde cero
     {
-        PORTC = PORTC++;
+        PORTA = PORTA++;
     }
     else
     {
-        PORTC = PORTC << 1;
-        if (PORTCbits.RC7 == 1)
+        PORTA = PORTA << 1;
+        if (PORTAbits.RA7 == 1)
         {
-            PORTBbits.RB6 = 1;  // el primer jugador gano
+            PORTDbits.RD6 = 1;  // el primer jugador gano
             ban = 0;           // apagamos la bandera
         }
         else
         {
-            PORTBbits.RB6 = 0;
+            PORTDbits.RD6 = 0;
         }
     }
 }
@@ -160,28 +161,28 @@ void cuenta2(void)
 {
     if (PORTB == 0)
     {
-        PORTD = PORTD++;
+        PORTC = PORTC++;
     }
     else
     {
-        PORTD = PORTD << 1;
-        if (PORTDbits.RD7 == 1)
+        PORTC = PORTC << 1;
+        if (PORTCbits.RC7 == 1)
         {
-            PORTBbits.RB7 = 1;
+            PORTDbits.RD7 = 1;
             ban = 0;
         }
         else
         {
-            PORTBbits.RB7 = 0;
+            PORTDbits.RD7 = 0;
         }
     }
 }
 
 void reset(void)
 {
-PORTD = 0;
+PORTC = 0;
         PORTB = 0;
-        PORTC = 0;
+        PORTA = 0;
         PORTE = 0;
         ban  = 0;
 }
