@@ -159,7 +159,7 @@ void cuenta1(void)   // primer jugador
 
 void cuenta2(void)
 {
-    if (PORTB == 0)
+    if (PORTC == 0)
     {
         PORTC = PORTC++;
     }
