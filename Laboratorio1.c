@@ -122,6 +122,9 @@ void setup(void){
     
     TRISB = 0B00001111;    //los primeros 3 puertos conectados como entradas
     PORTB = 0;
+    
+    TRISD = 0;
+    PORTD = 0;
 }
 void semaforo(void){
     PORTE = 1;               // enciendo el primer led con delay de 100 ms
