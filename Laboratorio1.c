@@ -110,10 +110,6 @@ void main(void) {
             cuenta2();
             __delay_ms(100);
         }
-        if (PUSH4 == 1){
-            reset();
-            __delay_ms(100);
-            }
         }
     }
     
@@ -182,13 +178,4 @@ void cuenta2(void)
     }
 }
 
-void reset(void)
-{
-PORTC = 0;
-PORTB = 0;
-PORTA = 0;
-PORTE = 0;
-PORTD = 0;
-ban   = 0;
-}
 
