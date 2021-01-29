@@ -187,6 +187,7 @@ PORTC = 0;
 PORTB = 0;
 PORTA = 0;
 PORTE = 0;
+PORTD = 0;
 ban   = 0;
 }
 
