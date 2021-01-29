@@ -62,6 +62,31 @@ void cuenta1(void);
 void cuenta2(void);
 
 //******************************************************************************
+//                           CONFIGURACION
+//******************************************************************************
+
+void setup(void){
+
+    ANSEL  = 0; // indica que los puertos son analogicos 
+    ANSELH = 0; 
+    
+    TRISE  = 0; // limpia el puerto
+    PORTE  = 0; 
+    
+    TRISA = 0;  // indica que mi puerto es una salida y que limpia dicho puerto
+    PORTA = 0; 
+    
+    TRISC = 0;
+    PORTC = 0;
+    
+    TRISB = 0B00001111;    //los primeros 3 puertos conectados como entradas
+    PORTB = 0;
+    
+    TRISD = 0;
+    PORTD = 0;
+}
+
+//******************************************************************************
 //                           CODIGO PRINCIPAL
 //******************************************************************************
 
@@ -102,30 +127,6 @@ void main(void) {
         //    }
         //    }
 
-//******************************************************************************
-//                           CONFIGURACION
-//******************************************************************************
-
-void setup(void){
-
-    ANSEL  = 0; // indica que los puertos son analogicos 
-    ANSELH = 0; 
-    
-    TRISE  = 0; // limpia el puerto
-    PORTE  = 0; 
-    
-    TRISA = 0;  // indica que mi puerto es una salida y que limpia dicho puerto
-    PORTA = 0; 
-    
-    TRISC = 0;
-    PORTC = 0;
-    
-    TRISB = 0B00001111;    //los primeros 3 puertos conectados como entradas
-    PORTB = 0;
-    
-    TRISD = 0;
-    PORTD = 0;
-}
 void semaforo(void){
     PORTE = 1;               // enciendo el primer led con delay de 100 ms
     __delay_ms(100);
